@@ -60,7 +60,7 @@ public void display(){ //utility function to display the graph
 
 
 
-public void dfs(int source, int dest ){
+public void bfs(int source, int dest ){
 	int check=0; // this variable would stay same if no path exists
 	
 	boolean []visited=new boolean[this.adj.size()]; //this array keeps a track of visited nodes
@@ -68,7 +68,7 @@ public void dfs(int source, int dest ){
 	int parent[]=new int[this.adj.size()]; //this array keeps a track of the parent of the current node
 	
 	
-	//DFS with help of a queue
+	//BFS with help of a queue
 	Queue<Integer> q= new LinkedList<>();
 	
 	q.add(source); 
