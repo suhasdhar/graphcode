@@ -1,0 +1,143 @@
+public class Graph {
+
+	//graph will have only one property, i.e Adjacency List
+	//which will be actually an Array list of HashSet of Integers
+	/*
+	 * 0-->[1,2,3]
+	 * 1-->[0,3]
+	 * 2-->[0,4]
+	 * 3-->[1,0]
+	 * 4-->[2]
+	 * the nodes 0,1,2,3,4 are linked to the corresponding nodes
+	 */
+	private ArrayList<HashSet<Integer>>adj;
+	
+	Graph(int verticies){
+		
+	adj=new ArrayList<>();
+		
+	//next loop will initialize a HashSet for each space in the ArrayList
+	
+	for(int i=0;i<verticies;i++){
+			
+			adj.add(new HashSet<Integer>());
+			
+	}
+		
+		
+	}
+	
+	
+	
+	
+	
+	public void addedge(int source, int dest){
+		this.adj.get(source).add(dest);
+		// will create unidirectional edges
+		
+	}
+	
+	
+	
+	
+	
+	
+public void display(){ //utility function to display the graph
+	
+	for(int i=0;i<this.adj.size();i++){
+		System.out.println(i+" => "+this.adj.get(i));
+		
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+public void dfs(int source, int dest ){
+	int check=0; // this variable would stay same if no path exists
+	
+	boolean []visited=new boolean[this.adj.size()]; //this array keeps a track of visited nodes
+
+	int parent[]=new int[this.adj.size()]; //this array keeps a track of the parent of the current node
+	
+	
+	//DFS with help of a queue
+	Queue<Integer> q= new LinkedList<>();
+	
+	q.add(source); 
+	
+	visited[source]=true;
+	parent[source]=-1;  //source has no parent so mark parent[source]=-1;
+	
+	while(!q.isEmpty()){
+		
+		int cur=q.poll();       
+		
+		if(cur==dest){ 
+			//this block should be read after studying the unfavourible case
+			//if the poping element is what we need, then we need to count the distance
+			//for which we have an evaluate method
+	
+			int ans=this.evaluate(parent, source, dest);
+			
+			System.out.println(ans);
+			check=1;
+			break;			
+		}
+		
+		
+	HashSet <Integer>ar=this.adj.get(cur); 
+	//ar will store the HashSet associated to current node
+	//such that we iterate through it and keep pushing the values in the queue
+	
+	Iterator<Integer>it=ar.iterator();
+	
+	while(it.hasNext()){
+	int x=it.next();
+	
+	
+	if(visited[x]!=true){
+	//if the current node is not visited, then the node would be added to queue, else skip
+	q.add(x);
+	parent[x]=cur;
+	visited[x]=true;}
+		//this block will help us form the queue, once the queue is formed we are all set to pop
+		// which means the while loop above will continue
+	}
+	  }
+	
+	if (check==0){System.out.println("no path exists");}	
+	
+}
+
+
+
+public int evaluate(int[]parent, int source, int dest){
+	//utility function to count the distance O(n)
+	
+	int count =0;
+	int point=dest;
+
+	while(point!=-1){
+		
+
+	
+    point=parent[point];
+	count++;
+	
+	}
+	
+	return count-1;
+}
+
+	
+	
+	
+}
